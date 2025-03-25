@@ -1,17 +1,30 @@
-import React from "react";
 import { useState } from "react";
-// import "./App5.css";
 export default function App5() {
-  const [count, setCount] = useState(0);
+  const [todos, setTodos] = useState([]);
+  const [task, setTask] = useState();
   const handleSubmit = () => {
-    setCount(count+1)
-  }
+    setTodos([...todos, task]);
+  };
+  const handleDelete = (task) => {
+    setTodos(todos.filter((value) => value !== task));
+  };
   return (
-    <div className="container">
-      <div>
-        <div>{count}</div>
-        <button onClick={handleSubmit}>Click</button>
-      </div>
+    <div>
+      <h3>This is App5</h3>
+      <p>
+        <input
+          type="text"
+          onChange={(e) => setTask(e.target.value)}
+          placeholder="Enter task"
+        ></input>
+        <button onClick={handleSubmit}>Submit</button>
+        <hr></hr>
+        {todos.map((value, index) => (
+          <li key={index}>
+            {value}-<button onClick={() => handleDelete(value)}>Delete</button>
+          </li>
+        ))}
+      </p>
     </div>
   );
 }
